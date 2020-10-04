@@ -44,30 +44,8 @@ class PassengerAdapter : PagedListAdapter<Passenger.Data,PassengerAdapter.Passen
         }
     }
 
-    class PassengerViewHolder(var view:ItemPassengerBinding):RecyclerView.ViewHolder(view.root){
-       /* private val passengerName = view.passengerName
-        private val airlineName = view.airlinesName
-        private val airlineIcon = view.airlinesIcon
-        private val airlineLink = view.airlinesLink
-
-        fun bind(passenger: Passenger.Data){
-
-            passengerName.text = passenger.name
-            airlineName.text = passenger.airline?.name
-            Glide.with(airlineIcon.context)
-                .load(passenger.airline?.logo)
-                .placeholder(R.drawable.ic_launcher_background)
-                .into(airlineIcon)
-
-            airlineLink.setOnClickListener {
-                val link = Uri.parse("http://"+passenger.airline?.website)
-                val launchBrowser = Intent(Intent.ACTION_VIEW,link)
-                it.context.startActivity(launchBrowser)
-            }
-
-        }*/
-    }
-
+    class PassengerViewHolder(var view:ItemPassengerBinding):RecyclerView.ViewHolder(view.root)
+    
     companion object{
         private val PASSENGER_COMPARATOR = object : DiffUtil.ItemCallback<Passenger.Data>() {
             override fun areItemsTheSame(oldItem: Passenger.Data, newItem: Passenger.Data): Boolean =
