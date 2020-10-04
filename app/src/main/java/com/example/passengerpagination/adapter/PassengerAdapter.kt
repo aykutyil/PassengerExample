@@ -33,11 +33,11 @@ class PassengerAdapter : PagedListAdapter<Passenger.Data,PassengerAdapter.Passen
 
     override fun onBindViewHolder(holder: PassengerViewHolder, position: Int) {
         val passenger = getItem(position)
-        passenger?.let {passenger->
-            holder.view.passenger = passenger
+        passenger?.let {instancePassenger->
+            holder.view.passenger = instancePassenger
 
             holder.view.airlinesLink.setOnClickListener {
-                val link = Uri.parse("http://"+passenger.airline?.website)
+                val link = Uri.parse("http://"+instancePassenger.airline?.website)
                 val launchBrowser = Intent(Intent.ACTION_VIEW,link)
                 it.context.startActivity(launchBrowser)
             }
