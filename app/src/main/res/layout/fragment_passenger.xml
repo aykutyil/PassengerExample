@@ -20,9 +20,11 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_passenger"/>
+            app:layout_constraintVertical_bias="0.0"
+            tools:listitem="@layout/item_passenger" />
 
         <ProgressBar
             android:id="@+id/pageLoading"
@@ -33,15 +35,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
         <TextView
             android:id="@+id/networkMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Please Connect To The Internet"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTryAgainConnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Try To Connect"
+            android:onClick="@{()->fragment.begin()}"
+            android:textColor="#0019F1"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/networkMessage"
+            app:layout_constraintStart_toStartOf="@+id/networkMessage"
+            app:layout_constraintTop_toBottomOf="@+id/networkMessage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
