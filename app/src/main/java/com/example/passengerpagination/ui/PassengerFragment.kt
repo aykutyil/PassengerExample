@@ -39,6 +39,11 @@ class PassengerFragment : Fragment() {
         passenger_recyclerview.layoutManager = LinearLayoutManager(context)
         passenger_recyclerview.adapter = adapter
 
+        begin()
+
+    }
+
+     fun begin() {
         context?.let {
             viewModel.isNetworkConneted(it)
             networkCheck()
@@ -49,9 +54,14 @@ class PassengerFragment : Fragment() {
         viewModel.networkState.observe(viewLifecycleOwner, Observer {
             if (it) {
                 networkMessage.visibility = View.INVISIBLE
+                tvTryAgainConnect.visibility = View.INVISIBLE
+                viewModel.setAdapter()
                 setPassenger()
-            } else
+            } else{
                 networkMessage.visibility = View.VISIBLE
+                tvTryAgainConnect.visibility = View.VISIBLE
+
+            }
         })
     }
 
@@ -65,10 +75,8 @@ class PassengerFragment : Fragment() {
         })
 
         viewModel.passengerPagedList.observe(viewLifecycleOwner, Observer {
-            it?.let {
                 passenger_recyclerview.addOnScrollListener(viewModel.prOnScrollListener())
                 adapter.submitList(it)
-            }
         })
     }
 
