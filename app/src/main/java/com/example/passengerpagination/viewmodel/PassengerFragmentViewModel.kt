@@ -16,17 +16,17 @@ import com.example.passengerpagination.model.Passenger
 
 class PassengerFragmentViewModel:ViewModel() {
 
-    val passengerPagedList: LiveData<PagedList<Passenger.Data>>
+    lateinit var passengerPagedList: LiveData<PagedList<Passenger.Data>>
+
+    private val itemDataSourceFactory = PassengerDataSourceFactory()
+    private lateinit var liveDataSource: LiveData<PassengerDataSource>
 
     var networkState = MutableLiveData<Boolean>()
 
     var stateProgressBar = MutableLiveData<Boolean>()
 
-    private val itemDataSourceFactory = PassengerDataSourceFactory()
-    private val liveDataSource: LiveData<PassengerDataSource>
 
-    init {
-
+    fun setAdapter() {
         liveDataSource = itemDataSourceFactory.passengerLiveDataSource
 
         val config = PagedList.Config
@@ -36,8 +36,8 @@ class PassengerFragmentViewModel:ViewModel() {
             .build()
 
         passengerPagedList = LivePagedListBuilder(itemDataSourceFactory, config).build()
-
     }
+
 
     fun isNetworkConneted(context: Context) {
         val connectivityManager =
@@ -73,4 +73,6 @@ class PassengerFragmentViewModel:ViewModel() {
         } else
             false
     }
+
+
 }
