@@ -1,10 +1,12 @@
 package com.example.passengerpagination.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -66,20 +68,25 @@ class PassengerFragment : Fragment() {
     }
 
     private fun setPassenger() {
-        viewModel.stateProgressBar.observe(viewLifecycleOwner, Observer {
-            if (it){
-                pageLoading.visibility = View.VISIBLE
+        try {
+            viewModel.stateProgressBar.observe(viewLifecycleOwner, Observer {
+                if (it){
+                    pageLoading.visibility = View.VISIBLE
 
-            }else
-                pageLoading.visibility = View.INVISIBLE
-        })
+                }else
+                    pageLoading.visibility = View.INVISIBLE
+            })
 
-        viewModel.passengerPagedList.observe(viewLifecycleOwner, Observer {
+            viewModel.passengerPagedList.observe(viewLifecycleOwner, Observer {
                 passenger_recyclerview.addOnScrollListener(viewModel.prOnScrollListener())
                 adapter.submitList(it)
-        })
+            })
+        }catch (e:Exception){
+            Toast.makeText(context,"Bir hata oluştu.",Toast.LENGTH_LONG).show()
+            Log.e("Error",e.message.toString())
+            networkMessage.visibility = View.VISIBLE
+            tvTryAgainConnect.visibility = View.VISIBLE
+        }
+
     }
-
-
-
 }
