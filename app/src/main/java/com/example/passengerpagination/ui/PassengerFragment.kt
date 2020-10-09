@@ -9,13 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.passengerpagination.adapter.PassengerAdapter
 import com.example.passengerpagination.databinding.FragmentPassengerBinding
 import com.example.passengerpagination.viewmodel.PassengerFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_passenger.*
-import kotlinx.coroutines.launch
 
 class PassengerFragment : Fragment() {
 
