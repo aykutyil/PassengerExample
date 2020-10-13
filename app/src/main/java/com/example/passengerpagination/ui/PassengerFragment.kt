@@ -1,12 +1,14 @@
 package com.example.passengerpagination.ui
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.HandlerCompat.postDelayed
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,9 +30,9 @@ class PassengerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? = FragmentPassengerBinding.inflate(inflater, container, false)
         .apply {
-        binding = this
-        fragment = this@PassengerFragment
-    }.root
+            binding = this
+            fragment = this@PassengerFragment
+        }.root
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +47,7 @@ class PassengerFragment : Fragment() {
 
     }
 
-     fun begin() {
+    fun begin() {
         context?.let {
             viewModel.isNetworkConneted(it)
             networkCheck()
@@ -59,7 +61,7 @@ class PassengerFragment : Fragment() {
                 tvTryAgainConnect.visibility = View.INVISIBLE
                 viewModel.setAdapter()
                 setPassenger()
-            } else{
+            } else {
                 networkMessage.visibility = View.VISIBLE
                 tvTryAgainConnect.visibility = View.VISIBLE
 
@@ -69,21 +71,28 @@ class PassengerFragment : Fragment() {
 
     private fun setPassenger() {
         try {
-            viewModel.stateProgressBar.observe(viewLifecycleOwner, Observer {
-                if (it){
-                    pageLoading.visibility = View.VISIBLE
 
-                }else
-                    pageLoading.visibility = View.GONE
-            })
+            Handler().postDelayed({
+                viewModel.stateProgressBar.observe(viewLifecycleOwner, Observer {
+                    if (it) {
+                        viewModel.stateProgressBar.value = false
+                        pageLoading.visibility = View.GONE
+                    }
+                })
+            }, 5000)
 
             viewModel.passengerPagedList.observe(viewLifecycleOwner, Observer {
-                passenger_recyclerview.addOnScrollListener(viewModel.prOnScrollListener())
+                binding.passengerRecyclerview.addOnScrollListener(viewModel.prOnScrollListener()).also {
+                    binding.pageLoading.visibility = View.VISIBLE
+                    viewModel.stateProgressBar.value = true
+                }
                 adapter.submitList(it)
             })
-        }catch (e:Exception){
-            Toast.makeText(context,"Bir hata oluştu.",Toast.LENGTH_LONG).show()
-            Log.e("Error",e.message.toString())
+
+
+        } catch (e: Exception) {
+            Toast.makeText(context, "Bir hata oluştu.", Toast.LENGTH_LONG).show()
+            Log.e("Error", e.message.toString())
             networkMessage.visibility = View.VISIBLE
             tvTryAgainConnect.visibility = View.VISIBLE
         }
