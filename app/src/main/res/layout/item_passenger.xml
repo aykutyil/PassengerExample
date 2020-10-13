@@ -7,6 +7,12 @@
         <variable
             name="passenger"
             type="com.example.passengerpagination.model.Passenger.Data" />
+        <variable
+            name="adapter"
+            type="com.example.passengerpagination.adapter.PassengerAdapter" />
+        <variable
+            name="handler"
+            type="com.example.passengerpagination.adapter.BrowserOnCLick" />
     </data>
     <androidx.cardview.widget.CardView
         android:id="@+id/passengerLayout"
@@ -61,6 +67,7 @@
                 android:layout_height="20dp"
                 android:layout_marginEnd="50dp"
                 app:layout_constraintBottom_toBottomOf="@+id/airlinesName"
+                android:onClick="@{(view)->handler.browserOnClicked(view,passenger.airline.website)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/passengerName"
                 app:srcCompat="@drawable/browser" />
