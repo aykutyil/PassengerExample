@@ -4,17 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.passengerpagination.R
 import com.example.passengerpagination.databinding.ItemPassengerBinding
 import com.example.passengerpagination.model.Passenger
-import kotlinx.android.synthetic.main.item_passenger.view.*
 
 class PassengerAdapter : PagedListAdapter<Passenger.Data,PassengerAdapter.PassengerViewHolder>(
     PASSENGER_COMPARATOR) {
