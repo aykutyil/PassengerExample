@@ -36,7 +36,6 @@ class PassengerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(PassengerFragmentViewModel::class.java)
-
         binding.passengerRecyclerview.layoutManager = LinearLayoutManager(context)
         binding.passengerRecyclerview.adapter = adapter
 
