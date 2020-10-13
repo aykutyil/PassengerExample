@@ -2,6 +2,7 @@ package com.example.passengerpagination.ui
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -72,7 +73,7 @@ class PassengerFragment : Fragment() {
     private fun setPassenger() {
         try {
 
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 viewModel.stateProgressBar.observe(viewLifecycleOwner, Observer {
                     if (it) {
                         viewModel.stateProgressBar.value = false
