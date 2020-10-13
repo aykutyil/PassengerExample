@@ -14,7 +14,7 @@ class PassengerDataSource : PageKeyedDataSource<Int, Passenger.Data>() {
 
     companion object {
         const val PAGE_SIZE = 20
-        const val FIRST_PAGE = 2
+        const val FIRST_PAGE = 1
         var FINAL_PAGE = 0
     }
 
