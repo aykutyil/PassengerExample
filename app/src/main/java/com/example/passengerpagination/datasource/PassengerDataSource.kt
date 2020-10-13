@@ -1,5 +1,6 @@
 package com.example.passengerpagination.datasource
 
+import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.example.passengerpagination.model.Passenger
 import com.example.passengerpagination.service.ApiService
@@ -11,6 +12,8 @@ import io.reactivex.schedulers.Schedulers
 class PassengerDataSource : PageKeyedDataSource<Int, Passenger.Data>() {
 
     private val disposable = CompositeDisposable()
+
+    var errorPage = 0
 
     companion object {
         const val PAGE_SIZE = 20
@@ -81,6 +84,7 @@ class PassengerDataSource : PageKeyedDataSource<Int, Passenger.Data>() {
                 .subscribeWith(object : DisposableSingleObserver<Passenger>() {
                     override fun onSuccess(t: Passenger) {
                         val key = if (params.key < FINAL_PAGE) params.key + 1 else 0
+                        errorPage = key
                         t.let { passenger ->
                             passenger.data?.let { passengerList ->
                                 callback.onResult(passengerList, key)
@@ -91,6 +95,8 @@ class PassengerDataSource : PageKeyedDataSource<Int, Passenger.Data>() {
 
                     override fun onError(e: Throwable) {
                         e.printStackTrace()
+                        Log.e("Error : " ,e.message + " error page : $errorPage")
+                        println("page : $errorPage")
                     }
                 })
         )
