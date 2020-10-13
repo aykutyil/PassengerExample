@@ -73,24 +73,17 @@ class PassengerFragment : Fragment() {
     private fun setPassenger() {
         try {
 
-            Handler(Looper.getMainLooper()).postDelayed({
-                viewModel.stateProgressBar.observe(viewLifecycleOwner, Observer {
-                    if (it) {
-                        viewModel.stateProgressBar.value = false
-                        pageLoading.visibility = View.GONE
-                    }
-                })
-            }, 5000)
-
-            viewModel.passengerPagedList.observe(viewLifecycleOwner, Observer {
-                binding.passengerRecyclerview.addOnScrollListener(viewModel.prOnScrollListener()).also {
+            viewModel.stateProgressBar.observe(viewLifecycleOwner, Observer {
+                if (it) {
                     binding.pageLoading.visibility = View.VISIBLE
-                    viewModel.stateProgressBar.value = true
-                }
-                adapter.submitList(it)
+                }else
+                    binding.pageLoading.visibility = View.GONE
             })
 
-
+            viewModel.passengerPagedList.observe(viewLifecycleOwner, Observer {
+                binding.passengerRecyclerview.addOnScrollListener(viewModel.prOnScrollListener())
+                adapter.submitList(it)
+            })
         } catch (e: Exception) {
             Toast.makeText(context, "Bir hata oluştu.", Toast.LENGTH_LONG).show()
             Log.e("Error", e.message.toString())
