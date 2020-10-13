@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
@@ -14,7 +15,7 @@ import com.example.passengerpagination.databinding.ItemPassengerBinding
 import com.example.passengerpagination.model.Passenger
 
 class PassengerAdapter : PagedListAdapter<Passenger.Data,PassengerAdapter.PassengerViewHolder>(
-    PASSENGER_COMPARATOR) {
+    PASSENGER_COMPARATOR),BrowserOnCLick {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PassengerViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,12 +33,7 @@ class PassengerAdapter : PagedListAdapter<Passenger.Data,PassengerAdapter.Passen
         val passenger = getItem(position)
         passenger?.let {instancePassenger->
             holder.view.passenger = instancePassenger
-
-            holder.view.airlinesLink.setOnClickListener {
-                val link = Uri.parse("http://"+instancePassenger.airline?.website)
-                val launchBrowser = Intent(Intent.ACTION_VIEW,link)
-                it.context.startActivity(launchBrowser)
-            }
+            holder.view.handler = this
         }
     }
 
@@ -52,5 +48,11 @@ class PassengerAdapter : PagedListAdapter<Passenger.Data,PassengerAdapter.Passen
             override fun areContentsTheSame(oldItem: Passenger.Data, newItem: Passenger.Data): Boolean =
                 newItem == oldItem
         }
+    }
+
+    override fun browserOnClicked(v: View, w: String?) {
+        val link = Uri.parse("http://$w")
+        val launchBrowser = Intent(Intent.ACTION_VIEW,link)
+        v.context?.startActivity(launchBrowser)
     }
 }
