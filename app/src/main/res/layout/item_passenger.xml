@@ -8,9 +8,6 @@
             name="passenger"
             type="com.example.passengerpagination.model.Passenger.Data" />
         <variable
-            name="adapter"
-            type="com.example.passengerpagination.adapter.PassengerAdapter" />
-        <variable
             name="handler"
             type="com.example.passengerpagination.adapter.BrowserOnCLick" />
     </data>
