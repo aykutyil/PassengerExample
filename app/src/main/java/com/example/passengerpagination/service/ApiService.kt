@@ -25,7 +25,7 @@ class ApiService {
         .build()
         .create(ApiInterface::class.java)
 
-    fun getData(serviceType : Int):Single<Passenger>{
-        return api.getPassengers(serviceType,20)
+    fun getData(page : Int):Single<Passenger>{
+        return api.getPassengers(page,20)
     }
 }
